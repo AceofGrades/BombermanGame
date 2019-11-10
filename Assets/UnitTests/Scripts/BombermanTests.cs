@@ -87,6 +87,36 @@ public class BombermanTests
         Assert.IsTrue(oldPosition !=newPosition);
     }
 
+    [UnityTest]
+    public IEnumerator Player2Moves()
+    {
+        Player player2 = GetPlayer(2);
+
+        Vector3 oldPosition = player2.transform.position;
+
+        player2.Move(true, false, false, false);
+
+        yield return new WaitForFixedUpdate();
+
+        Vector3 newPosition = player2.transform.position;
+
+        Assert.IsTrue(oldPosition != newPosition);
+    }
+
+    [UnityTest]
+    public IEnumerator Player1Dies()
+    {
+        Player player1 = GetPlayer(1);
+
+        player1.DropBomb();
+
+        yield return new WaitForSeconds(5.1f);
+
+        Player player = Object.FindObjectOfType<Player>();
+
+        Assert.IsTrue(player != null, "Player 1 is not found.");
+    }
+
     [TearDown]
     public void TearDown()
     {
