@@ -35,7 +35,9 @@ public class BombermanTests
     }
 
     // >> TESTS GO HERE <<
+
     [UnityTest]
+    // Tests to see if Player 1 is capable of dropping a bomb
     public IEnumerator Player1DropsBomb()
     {
         Player player1 = GetPlayer(1);
@@ -54,6 +56,7 @@ public class BombermanTests
     }
 
     [UnityTest]
+    // Tests to see if Player 2 is capable of dropping a bomb
     public IEnumerator Player2DropsBomb()
     {
         Player player2 = GetPlayer(2);
@@ -72,48 +75,65 @@ public class BombermanTests
     }
 
     [UnityTest]
+    // Tests to se if Player 1 can move
     public IEnumerator Player1Moves()
     {
         Player player1 = GetPlayer(1);
 
+        // Get old position of Player 1
         Vector3 oldPosition = player1.transform.position;
 
+        // Make Player 1 move
         player1.Move(true, false, false, false);
 
+        // Wait for the fixed update
         yield return new WaitForFixedUpdate();
 
+        // Get new position of Player 1
         Vector3 newPosition = player1.transform.position;
 
+        // Check that old position is not the same as new position and assert that it's true
         Assert.IsTrue(oldPosition !=newPosition);
     }
 
     [UnityTest]
+    // Tests to see if Player 2 can move
     public IEnumerator Player2Moves()
     {
         Player player2 = GetPlayer(2);
 
+        // Get old position of Player 2
         Vector3 oldPosition = player2.transform.position;
 
+        // Make Player 2 move
         player2.Move(true, false, false, false);
 
+        // Wait for the fixed update
         yield return new WaitForFixedUpdate();
 
+        // Get new position of Player 2
         Vector3 newPosition = player2.transform.position;
 
+        // Check that old position is not the same as new position and assert that it's true
         Assert.IsTrue(oldPosition != newPosition);
     }
 
     [UnityTest]
+    // Tests to see if Player 1 dies via explosion
     public IEnumerator Player1Dies()
     {
         Player player1 = GetPlayer(1);
 
+        // Player 1 simulates bomb drop
         player1.DropBomb();
 
+        // Wait for 5.1 seconds
         yield return new WaitForSeconds(5.1f);
 
+        // Find the Player
         Player player = Object.FindObjectOfType<Player>();
 
+        // Check if Player 1 is not found and assert that it's true
         Assert.IsTrue(player != null, "Player 1 is not found.");
     }
 
